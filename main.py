@@ -13,7 +13,7 @@ dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
 def calcular_cantidad_gastada(userid):
     
     df=df_userdata1
-    df=df[df["user_id"]== userid]
+    df2=df[df["user_id"]== userid]
     cantidad =sum(df2["price"])
     cantidad = str(cantidad)
     
@@ -80,17 +80,17 @@ async def countreviews(start_date, end_date):
         
         # Filtrar el DataFrame por la condición de fechas y contar usuarios únicos
         filtered_reviews = dfCountreviews[
-            (df_reviews['posted'] >= start_date.strftime('%Y-%m-%d')) &
-            (df_reviews['posted'] <= end_date.strftime('%Y-%m-%d'))
+            (dfCountreviews['posted'] >= start_date.strftime('%Y-%m-%d')) &
+            (dfCountreviews['posted'] <= end_date.strftime('%Y-%m-%d'))
         ]
         num_users = filtered_reviews['user_id'].nunique()
         
-        porcentaje = (num_users / (df_reviews['user_id'].nunique())) * 100
+        porcentaje = (num_users / (dfCountreviews['user_id'].nunique())) * 100
         return f"En el rango de fechas {start_date} a {end_date}:\n{num_users} usuarios diferentes realizaron posteos. El porcentaje de recomendación es {porcentaje} %"
 
     except Exception as e:
         return f"Ocurrió un error: {e}"
-    
+"""   
 @app.get("/genre/{genero}")
 async def genre(genero: str):
     # Busca el ranking para el género de interés
@@ -98,6 +98,8 @@ async def genre(genero: str):
     return {
         'rank': rank
     }
+"""
+
     
 @app.get("/useforgenre/{genero}")
 async def userforgenre(genero: str):
