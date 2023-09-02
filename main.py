@@ -66,7 +66,7 @@ async def get_user_data(userid: str):
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
     
-
+"""
 @app.get('/countreviews/{start_date}, {end_date}')
 async def countreviews(start_date, end_date):
     try:
@@ -90,7 +90,8 @@ async def countreviews(start_date, end_date):
 
     except Exception as e:
         return f"Ocurrió un error: {e}"
-"""   
+
+ 
 @app.get("/genre/{genero}")
 async def genre(genero: str):
     # Busca el ranking para el género de interés
