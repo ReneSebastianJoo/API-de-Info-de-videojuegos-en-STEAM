@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import pandas as pd
 from fastapi.responses import JSONResponse
 
-df_userdata1 = pd.read_parquet("data/dfUserdata.parquet")
+df_userdata1 = pd.read_parquet("data/dfUSERData.parquet")
 df_userdata2 = pd.read_parquet("data/dfUserdata2.parquet")
 dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
 genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
