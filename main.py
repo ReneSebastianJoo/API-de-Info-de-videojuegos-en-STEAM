@@ -6,8 +6,8 @@ df_userdata1 = pd.read_parquet("data/dfUserdata.parquet")
 df_userdata2 = pd.read_parquet("data/dfUserdata2.parquet")
 dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
 genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
-dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
-#dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
+#dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
+dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
 #dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
 
 def calcular_cantidad_gastada(userid):
@@ -99,7 +99,7 @@ async def genre(genero: str):
     return {'La posicion en el ranking del genero es de ': rank}
 
 
-    
+"""  
 @app.get("/useforgenre/{genero}")
 async def userforgenre(genero: str):
     dfG= dfUSeforgenre
@@ -119,6 +119,8 @@ async def userforgenre(genero: str):
 
 """
 
+
+
 @app.get("/developer/{desarrollador}")
 async def developer(desarrollador):
     # Se filtra el dataframe por desarrollador de interés
@@ -137,6 +139,8 @@ async def developer(desarrollador):
     
     return result
 
+
+"""
 @app.get("/sentiment_analysis/{empresa_desarrolladora}")
 async def sentiment_analysis(empresa_desarrolladora: str):
     # Filtrar el DataFrame por la empresa desarrolladora
