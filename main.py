@@ -57,7 +57,7 @@ app = FastAPI()
 def hola():
     return {'bienvenidos a mi API un gusto recibirlos'}
 
-
+"""
 @app.get("/userdata/{userid}")
 async def get_user_data(userid: str):
     try:
@@ -66,7 +66,7 @@ async def get_user_data(userid: str):
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
     
-"""
+
 @app.get('/countreviews/{start_date}, {end_date}')
 async def countreviews(start_date, end_date):
     try:
