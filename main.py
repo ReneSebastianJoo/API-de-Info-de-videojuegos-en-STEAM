@@ -4,11 +4,11 @@ from fastapi.responses import JSONResponse
 
 df_userdata1 = pd.read_parquet("data/dfUserdata.parquet")
 df_userdata2 = pd.read_parquet("data/dfUserdata2.parquet")
-dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
-genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
-dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
-dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
-dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
+#dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
+#genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
+#dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
+#dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
+#dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
 
 def calcular_cantidad_gastada(userid):
     
@@ -57,7 +57,7 @@ app = FastAPI()
 def hola():
     return {'bienvenidos a mi API un gusto recibirlos'}
 
-"""
+
 @app.get("/userdata/{userid}")
 async def get_user_data(userid: str):
     try:
@@ -66,7 +66,7 @@ async def get_user_data(userid: str):
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
     
-
+"""
 @app.get('/countreviews/{start_date}, {end_date}')
 async def countreviews(start_date, end_date):
     try:
@@ -99,7 +99,7 @@ async def genre(genero: str):
     return {
         'rank': rank
     }
-"""
+
 
     
 @app.get("/useforgenre/{genero}")
@@ -154,3 +154,4 @@ async def sentiment_analysis(empresa_desarrolladora: str):
     
     return result_dict
 
+"""
