@@ -8,7 +8,7 @@ dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
 genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
 #dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
 #dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
-#dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
+dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
 
 def calcular_cantidad_gastada(userid):
     
