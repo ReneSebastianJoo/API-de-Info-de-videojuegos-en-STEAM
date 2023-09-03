@@ -7,7 +7,7 @@ df_userdata2 = pd.read_parquet("data/dfUserdata2.parquet")
 dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
 genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
 #dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
-dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
+#dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
 #dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
 
 def calcular_cantidad_gastada(userid):
@@ -117,7 +117,6 @@ async def userforgenre(genero: str):
         
     return top_users_dict
 
-"""
 
 
 
@@ -158,4 +157,3 @@ async def sentiment_analysis(empresa_desarrolladora: str):
     
     return result_dict
 
-"""
