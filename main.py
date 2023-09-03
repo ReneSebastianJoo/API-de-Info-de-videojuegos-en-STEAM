@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 df_userdata1 = pd.read_parquet("data/dfUserdata.parquet")
 df_userdata2 = pd.read_parquet("data/dfUserdata2.parquet")
 dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
-#genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
+genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
 #dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
 #dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
 #dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
@@ -91,16 +91,14 @@ async def countreviews(start_date, end_date):
     except Exception as e:
         return f"Ocurrió un error: {e}"
 
-"""
 @app.get("/genre/{genero}")
 async def genre(genero: str):
     # Busca el ranking para el género de interés
     rank = genre_ranking[genre_ranking['genres'] == genero]['ranking'].iloc[0]
-    return {
-        'rank': rank
-    }
+    rank = str(rank)
+    return {'La posicion en el ranking del genero es de ': rank}
 
-
+"""
     
 @app.get("/useforgenre/{genero}")
 async def userforgenre(genero: str):
