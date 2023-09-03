@@ -6,7 +6,7 @@ df_userdata1 = pd.read_parquet("data/dfUserdata.parquet")
 df_userdata2 = pd.read_parquet("data/dfUserdata2.parquet")
 dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
 genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
-#dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
+dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
 #dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
 #dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
 
@@ -98,7 +98,7 @@ async def genre(genero: str):
     rank = str(rank)
     return {'La posicion en el ranking del genero es de ': rank}
 
-"""
+
     
 @app.get("/useforgenre/{genero}")
 async def userforgenre(genero: str):
@@ -116,6 +116,8 @@ async def userforgenre(genero: str):
         top_users_dict[index + 1] = user_info
         
     return top_users_dict
+
+"""
 
 @app.get("/developer/{desarrollador}")
 async def developer(desarrollador):
