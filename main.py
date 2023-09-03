@@ -2,12 +2,12 @@ from fastapi import FastAPI
 import pandas as pd
 from fastapi.responses import JSONResponse
 
-df_userdata1 = pd.read_parquet("data/dfUserdata.parquet")
-df_userdata2 = pd.read_parquet("data/dfUserdata2.parquet")
+#df_userdata1 = pd.read_parquet("data/dfUserdata.parquet")
+#df_userdata2 = pd.read_parquet("data/dfUserdata2.parquet")
 dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
 genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
 #dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
-#dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
+dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
 dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
 
 def calcular_cantidad_gastada(userid):
@@ -57,7 +57,7 @@ app = FastAPI()
 def hola():
     return {'bienvenidos a mi API un gusto recibirlos'}
 
-
+"""
 @app.get("/userdata/{userid}")
 async def get_user_data(userid: str):
     try:
@@ -65,7 +65,7 @@ async def get_user_data(userid: str):
         return JSONResponse(content=user_data)
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
-    
+"""   
 
 @app.get('/countreviews/{start_date}, {end_date}')
 async def countreviews(start_date, end_date):
@@ -116,7 +116,7 @@ async def userforgenre(genero: str):
         top_users_dict[index + 1] = user_info
         
     return top_users_dict
-
+"""
 
 
 
@@ -139,7 +139,7 @@ async def developer(desarrollador):
     return result
 
 
-"""
+
 @app.get("/sentiment_analysis/{empresa_desarrolladora}")
 async def sentiment_analysis(empresa_desarrolladora: str):
     # Filtrar el DataFrame por la empresa desarrolladora
