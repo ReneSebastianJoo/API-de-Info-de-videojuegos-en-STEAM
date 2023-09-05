@@ -11,7 +11,7 @@
     <li><a href="#Introducción">Introducción</a></li>
     <li><a href="#Objetivo">Objetivo</a></li>
     <li><a href="#pila-de-tecnologías">Pila de Tecnologías</a></li>
-    <li><a href="#ETL">ETL</a></li>
+    <li><a href="#Proceso de ETL">ETL</a></li>
     <li><a href="#EDA">EDA</a></li>
     <li><a href="#funciones-api">Funciones API</a></li>
     <li><a href="#modelo-ml">Modelo ML</a></li>
@@ -158,7 +158,7 @@ Si deseas ver el video donde se proporciona una visión general de este proyecto
 
 <div align="center">
   
-[![YouTube](Link del video va aqui)
+[![YouTube](https://youtu.be/6oLGjT2w_Bs)
   
 </div>
 
