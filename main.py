@@ -9,6 +9,7 @@ genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
 #dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
 #dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
 dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
+modelo = pd.read("Modelo.parquet")
 
 def calcular_cantidad_gastada(userid):
     
@@ -53,12 +54,23 @@ def userdata(userid):
 
 
 app = FastAPI()
-@app.get('/')
+@app.get('/',
+         description= """Saludo de la API""",
+         tags=["Homepage"])
 def hola():
-    return {'bienvenidos a mi API un gusto recibirlos'}
+    return {'Bienvenidos a mi API un gusto recibirlos, se puede ver el funcionamiento si se coloca /docs en la barra de busqueda'}
 
 
-@app.get("/userdata/{userid}")
+@app.get("/userdata/{userid}",
+         description = """ <font color="darkgreen">
+                        INSTRUCCIONES<br>
+                        1. Haga clik en "Try it out".<br>
+                        2. Ingrese el user_id en la caja de texto.<br>
+                        3. Bajar hasta "Resposes" para ver la cantidad de dinero gastado por el usuario, el porcentaje de recomendación que realiza el usuario y cantidad de items que tiene el mismo.
+                        </font>
+                        """,
+         tags=["Consultas"])
+
 async def get_user_data(userid: str):
     try:
         user_data = userdata(userid)
@@ -155,3 +167,9 @@ async def sentiment_analysis(empresa_desarrolladora: str):
     
     return result_dict
 
+@app.get("/id de producto/{}")
+async def recomendacion_juego(id_producto):
+    recomendacion = Modelo[Modelo['id'] == id_producto]['recomendaciones'].iloc[0]
+    return {
+        'Segun el id que proporcionaste te podrian interesar estos juegos': recomendacion
+    }
