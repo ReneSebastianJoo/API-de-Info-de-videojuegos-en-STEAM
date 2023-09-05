@@ -6,7 +6,7 @@ df_userdata1 = pd.read_parquet("data/dfUSERData1.parquet")
 df_userdata2 = pd.read_parquet("data/dfUserdata2.parquet")
 dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
 genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
-# Se dejan estos dataframes comentados para que la API en render pueda funcionar
+# Se dejan estos dataframes comentados para que la API en render pueda funcionar ya que en local todos los endpoints funcionan
 #dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
 #dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
 dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
@@ -89,7 +89,7 @@ async def get_user_data(userid: str):
                         DESCRIPCION<br>
                         El endpoint countreviews nos devuelve la cantidad de post que se han generado entre dos fechas.<br>
                         Este endpoint nos pide 2 fechas la fecha de inicio: (start_date) y la fecha hasta donde queremos hacer la consulta: (end_date).<br>
-                        INSTRUCCIONES<br>
+                        Las fechas deben escribirse en formato YYYYMMDD donde YYYY es el año, MM el mes, DD el dia, por ejemplo 15-Sep-2011 seria 20110915<br>                        INSTRUCCIONES<br>
                         1. Haga clik en "Try it out".<br>
                         2. Ingrese en la caja de texto que dice start_date la fecha desde que le interesa hacer la consulta.<br>
                         3. Ingrese la fecha hasta donde quiere hacer la consulta.<br>
@@ -115,7 +115,7 @@ async def countreviews(start_date, end_date):
         num_users = filtered_reviews['user_id'].nunique()
         
         porcentaje = (num_users / (dfCountreviews['user_id'].nunique())) * 100
-        return f"En el rango de fechas {start_date} a {end_date}:\n{num_users} usuarios diferentes realizaron posteos. El porcentaje de recomendación es {porcentaje} %"
+        return f"En el rango de fechas {start_date} a {end_date}:  {num_users} usuarios diferentes realizaron posteos. El porcentaje de recomendación es {porcentaje} %"
 
     except Exception as e:
         return f"Ocurrió un error: {e}"
