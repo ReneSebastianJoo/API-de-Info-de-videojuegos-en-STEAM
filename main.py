@@ -9,7 +9,7 @@ genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
 #dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
 #dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
 dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
-modelo = pd.read("Modelo.parquet")
+Modelo = pd.read_parquet("data/Modelo.parquet")
 
 def calcular_cantidad_gastada(userid):
     
@@ -167,9 +167,19 @@ async def sentiment_analysis(empresa_desarrolladora: str):
     
     return result_dict
 
-@app.get("/id de producto/{}")
-async def recomendacion_juego(id_producto):
-    recomendacion = Modelo[Modelo['id'] == id_producto]['recomendaciones'].iloc[0]
-    return {
-        'Segun el id que proporcionaste te podrian interesar estos juegos': recomendacion
-    }
+@app.get("/recomendacion_usuario/{id_producto}")
+async def recomendacion_juego(id_producto: int):
+    recomendaciones = Modelo[Modelo['id'] == id_producto]['recomendaciones'].iloc[0]
+    
+    # Verificar si la lista de recomendaciones no está vacía
+    if len(recomendaciones) > 0:
+        recomendaciones_dict = {i + 1: juego for i, juego in enumerate(recomendaciones)}
+        return recomendaciones_dict
+    else:
+        # Si no se encontraron recomendaciones para el ID, devolver un mensaje de error
+        error_data = {'error': 'No se encontraron recomendaciones para el ID proporcionado'}
+        return JSONResponse(content=error_data, status_code=404)
+
+    
+    
+    
