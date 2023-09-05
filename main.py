@@ -6,8 +6,9 @@ df_userdata1 = pd.read_parquet("data/dfUSERData1.parquet")
 df_userdata2 = pd.read_parquet("data/dfUserdata2.parquet")
 dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
 genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
+# Se dejan estos dataframes comentados para que la API en render pueda funcionar
 #dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
-dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
+#dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
 dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
 Modelo = pd.read_parquet("data/Modelo.parquet")
 
