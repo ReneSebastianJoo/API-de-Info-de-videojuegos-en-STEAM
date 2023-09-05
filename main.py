@@ -7,7 +7,7 @@ df_userdata2 = pd.read_parquet("data/dfUserdata2.parquet")
 dfCountreviews = pd.read_parquet("data/dfCountreviews.parquet")
 genre_ranking = pd.read_parquet("data/genre_ranking.parquet")
 #dfUSeforgenre = pd.read_parquet("data/dfUSeforgenre.parquet")
-#dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
+dfDeveloper = pd.read_parquet("data/dfDeveloper.parquet")
 dfSentiment = pd.read_parquet("data/dfSentiment.parquet")
 Modelo = pd.read_parquet("data/Modelo.parquet")
 
@@ -55,21 +55,25 @@ def userdata(userid):
 
 app = FastAPI()
 @app.get('/',
-         description= """Saludo de la API""",
          tags=["Homepage"])
 def hola():
-    return {'Bienvenidos a mi API un gusto recibirlos, se puede ver el funcionamiento si se coloca /docs en la barra de busqueda'}
+    return {'Bienvenidos a mi API un gusto recibirlos, se puede ver el funcionamiento de esta si se coloca /docs en la barra de busqueda'}
 
 
 @app.get("/userdata/{userid}",
          description = """ <font color="darkgreen">
+                        DESCRIPCION<br>
+                        Este endpoint nos pide un user_id y nos devuelve:<br>
+                        1.- La cantidad de dinero gastada por el usuario.<br>
+                        2.- El porcentaje de recomendación en base a reviews, recommend.<br>
+                        3.- La cantidad de items que tiene.<br>
                         INSTRUCCIONES<br>
                         1. Haga clik en "Try it out".<br>
                         2. Ingrese el user_id en la caja de texto.<br>
                         3. Bajar hasta "Resposes" para ver la cantidad de dinero gastado por el usuario, el porcentaje de recomendación que realiza el usuario y cantidad de items que tiene el mismo.
                         </font>
                         """,
-         tags=["Consultas"])
+         tags=["Features"])
 
 async def get_user_data(userid: str):
     try:
@@ -79,7 +83,19 @@ async def get_user_data(userid: str):
         return JSONResponse(content={"error": str(e)}, status_code=500)
 
 
-@app.get('/countreviews/{start_date}, {end_date}')
+@app.get("/countreviews/{start_date}, {end_date}",
+         description = """ <font color="darkgreen">
+                        DESCRIPCION<br>
+                        El endpoint countreviews nos devuelve la cantidad de post que se han generado entre dos fechas.<br>
+                        Este endpoint nos pide 2 fechas la fecha de inicio: (start_date) y la fecha hasta donde queremos hacer la consulta: (end_date).<br>
+                        INSTRUCCIONES<br>
+                        1. Haga clik en "Try it out".<br>
+                        2. Ingrese en la caja de texto que dice start_date la fecha desde que le interesa hacer la consulta.<br>
+                        3. Ingrese la fecha hasta donde quiere hacer la consulta.<br>
+                        4. Bajar hasta "Resposes" para ver la cantidad de posts generados entre esas fechas.
+                        </font>
+                        """,
+         tags=["Features"])
 async def countreviews(start_date, end_date):
     try:
         # Convertir las fechas en formato YYYY-MM-DD al tipo de dato de fecha
@@ -103,7 +119,18 @@ async def countreviews(start_date, end_date):
     except Exception as e:
         return f"Ocurrió un error: {e}"
 
-@app.get("/genre/{genero}")
+@app.get("/genre/{genero}", 
+         description =""" <font color="darkgreen">
+                        DESCRIPCION<br>
+                        El endpoint genre nos devuelve la posicion que tiene un genero de videojuegos en un ranking del total de horas jugadas por los usuarios de ese genero.<br>
+                        Este endpoint nos pide un genero de videojuegos para su funcionamiento.<br>
+                        INSTRUCCIONES<br>
+                        1. Haga clik en "Try it out".<br>
+                        2. Ingrese en la caja de texto que dice genero el genero sobre el que le gustaria consultar.<br>
+                        3. Bajar hasta "Resposes" para ver la posicion en el ranking de este genero.<br>
+                        </font>
+                        """,
+         tags=["Features"])
 async def genre(genero: str):
     # Busca el ranking para el género de interés
     rank = genre_ranking[genre_ranking['genres'] == genero]['ranking'].iloc[0]
@@ -112,7 +139,18 @@ async def genre(genero: str):
 
 
 
-@app.get("/useforgenre/{genero}")
+@app.get("/useforgenre/{genero}", 
+         description =""" <font color="darkgreen">
+                        DESCRIPCION<br>
+                        El endpoint useforgenre nos devuelve el top 5 de usuarios que mas horas juegan a determinado genero.<br>
+                        Este endpoint nos pide un genero de videojuegos para su funcionamiento.<br>
+                        INSTRUCCIONES<br>
+                        1. Haga clik en "Try it out".<br>
+                        2. Ingrese en la caja de texto que dice genero el genero sobre el que le gustaria consultar.<br>
+                        3. Bajar hasta "Resposes" para ver la informacíon de los usuarios que más juegan este genero.<br>
+                        </font>
+                        """,
+         tags=["Features"])
 async def userforgenre(genero: str):
     dfG= dfUSeforgenre
     
@@ -130,7 +168,18 @@ async def userforgenre(genero: str):
     return top_users_dict
 
 
-@app.get("/developer/{desarrollador}")
+@app.get("/developer/{desarrollador}", 
+         description =""" <font color="darkgreen">
+                        DESCRIPCION<br>
+                        El endpoint developer nos devuelve la cantidad de juegos que saca un desarrollador y el porcentaje de contenido free que hace por año.<br>
+                        Este endpoint nos pide el nombre de una empresa desarrolladora de videojuegos para su funcionamiento.<br>
+                        INSTRUCCIONES<br>
+                        1. Haga clik en "Try it out".<br>
+                        2. Ingrese en la caja de texto que dice desarrollador la compañia sobre el que le gustaria consultar.<br>
+                        3. Bajar hasta "Resposes" para ver la cantidad de videojuegos lanzados por esa compañia por año y el porecentaje de contenido gratuito.<br>
+                        </font>
+                        """,
+         tags=["Features"])
 async def developer(desarrollador):
     # Se filtra el dataframe por desarrollador de interés
     developer = dfDeveloper[dfDeveloper['publisher'] == desarrollador]
@@ -150,7 +199,19 @@ async def developer(desarrollador):
 
 
 
-@app.get("/sentiment_analysis/{empresa_desarrolladora}")
+@app.get("/sentiment_analysis/{empresa_desarrolladora}", 
+         description =""" <font color="darkgreen">
+                        DESCRIPCION<br>
+                        El endpoint sentiment_analysis nos devuelve el analisis de sentimiento de las reseñas por año de una empresa desarrolladora<br>
+                        clasificadas en Negative (Negativas), Positive (Positivas), Neutral (Neutrales).<br>
+                        Este endpoint nos pide el nombre de una empresa desarrolladora para su funcionamiento.<br>
+                        INSTRUCCIONES<br>
+                        1. Haga clik en "Try it out".<br>
+                        2. Ingrese en la caja de texto que dice empresa_desarrolladora ingresar el nombre de la empresa sobre el que le gustaria consultar.<br>
+                        3. Bajar hasta "Resposes" para ver el analisis de sentimiento de cada empresa por año.<br>
+                        </font>
+                        """,
+         tags=["Features"])
 async def sentiment_analysis(empresa_desarrolladora: str):
     # Filtrar el DataFrame por la empresa desarrolladora
     data_por_desarrolladora = dfSentiment[dfSentiment['developer'].apply(lambda x: empresa_desarrolladora in x)]
@@ -167,7 +228,18 @@ async def sentiment_analysis(empresa_desarrolladora: str):
     
     return result_dict
 
-@app.get("/recomendacion_usuario/{id_producto}")
+@app.get("/recomendacion_juego/{id_producto}", 
+         description =""" <font color="darkgreen">
+                        DESCRIPCION<br>
+                        El endpoint recomendacion_juego nos devuelve 5 recomendaciones de juegos similares a uno del que ponemos su id.<br>
+                        Este endpoint nos pide el id de un videojuego para su funcionamiento.<br>
+                        INSTRUCCIONES<br>
+                        1. Haga clik en "Try it out".<br>
+                        2. Ingrese en la caja de texto que dice id_producto se coloca el id sobre el que nos gustaria obtener recomendaciones.<br>
+                        3. Bajar hasta "Resposes" para ver las recomendaciones.<br>
+                        </font>
+                        """,
+         tags=["Modelo_Recomendacion"])
 async def recomendacion_juego(id_producto: int):
     recomendaciones = Modelo[Modelo['id'] == id_producto]['recomendaciones'].iloc[0]
     
